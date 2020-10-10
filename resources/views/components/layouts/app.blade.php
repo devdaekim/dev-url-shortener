@@ -25,6 +25,7 @@
 </head>
 <body>
 <div class="flex flex-col w-full min-h-screen font-sans bg-gray-100">
+
   {{-- header --}}
   <div class="bg-white">
     <div class="container px-4 mx-auto">

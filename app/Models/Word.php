@@ -15,7 +15,11 @@ class Word extends Model
      * @var array
      */
     protected $fillable = [
-        'word', 'available',
+        'listing_no', 'word', 'available',
+    ];
+
+    protected $hidden = [
+        'created_at', 'updated_at'
     ];
 
     /**

@@ -15,6 +15,7 @@ class CreateWordsTable extends Migration
     {
         Schema::create('words', function (Blueprint $table) {
             $table->id();
+            $table->integer('listing_no')->nullable();
             $table->string('word');
             $table->boolean('available')->default(true);
             $table->timestamps();
