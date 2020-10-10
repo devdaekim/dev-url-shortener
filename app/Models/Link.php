@@ -19,12 +19,22 @@ class Link extends Model
     ];
 
     /**
-     * A link can have a word
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'private' => 'boolean',
+        'counts' => 'integer',
+    ];
+
+    /**
+     * A link belongs to a word
      * @return relationship
      */
     public function word()
     {
-        return $this->hasOne('App\Models\Word');
+        return $this->belongsTo('App\Models\Word');
     }
 
     /**
@@ -33,6 +43,6 @@ class Link extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\User', 'user_id');
     }
 }

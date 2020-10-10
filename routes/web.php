@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('components.layouts.app');
-});
+// Route::get('/', function () {
+//     return view('components.layouts.app');
+// });
+
+Route::get('/', App\Http\Livewire\ShortenedLink::class);

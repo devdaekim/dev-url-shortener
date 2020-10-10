@@ -1,0 +1,113 @@
+<div>
+   {{-- form --}}
+    <div class="mb-6">
+      <form wire:submit.prevent='shorten' class="px-6">
+
+        <div class="flex items-start justify-between">
+          <div class="w-8/12 mb-4 md:flex md:justify-between">
+
+              {{-- long url --}}
+              <div class="w-full mb-4 md:mr-2 md:mb-0">
+                <input wire:model.debounce='long_url' class="form-input w-full px-3 py-2 text-sm leading-tight text-gray-700 shadow appearance-none focus:outline-none focus:shadow-outline @error('long_url') border-red-500 @enderror" id="long_url" type="text" placeholder="Long URL (required)" />
+                <p class="mt-2 text-sm leading-tight text-red-500">@error('long_url'){{ $message }}@enderror</p>
+              </div>
+
+              {{-- description url --}}
+              <div class="w-full md:ml-2">
+                <input wire:model.debounce='description' class="form-input w-full px-3 py-2 text-sm leading-tight text-gray-700 shadow appearance-none focus:outline-none focus:shadow-outline @error('description') border-red-500 @enderror" id="description" type="text" placeholder="Short URL keyword (optional)" />
+                <p class="mt-2 text-sm leading-tight text-red-500">@error('description'){{ $message }}@enderror</p>
+              </div>
+
+              {{-- private checkbox --}}
+              <div>
+                  <label class="inline-flex items-center mt-2 transition duration-150 ease-in-out md:ml-4">
+                <input wire:model='private' type="checkbox" class="w-5 h-5 text-blue-600 shadow form-checkbox">
+                <span class="ml-2 text-sm text-gray-700">Private?</span>
+                <div class="absolute top-auto right-auto z-20 hidden p-8 mt-auto text-white bg-blue-800 rounded"><p>Are you sure you want this private?</p> <div class="flex items-center"><button class="px-4 py-2 mr-4">Cancel</button> <button class="px-4 py-2 text-sm font-bold text-white bg-red-500 rounded">Proceed</button></div></div>
+              </label>
+              </div>
+
+            </div>
+          <div class="mb-6 text-center">
+              <button class="inline-flex items-center justify-center w-full px-10 py-2 text-sm text-white transition duration-150 ease-in-out bg-blue-600 rounded hover:bg-blue-800 focus:outline-none focus:shadow-outline focus:border-blue-800 focus:shadow-outline-blue active:bg-blue-800 disabled:opacity-50" type="submit">
+              <svg wire:loading wire:target="shorten" class="w-5 h-5 mr-3 -ml-1 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                  </path>
+                </svg>
+                <span>Shorten</span>
+              </button>
+              <p>
+                <span
+                x-data="{open: false}"
+                x-init="
+                    @this.on('notify-saved', () => {
+                    setTimeout(()=> {open = false}, 2500);
+                    open = true;
+                    })
+                    "
+                x-show.transition.out.duration.750ms="open"
+                style="display:none;"
+                >
+                    Saved!
+                </span>
+                </p>
+            </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="px-2">
+      <div class="w-full px-4 mb-6 lg:mb-0">
+        <h2 class="text-2xl font-bold">Recent Links</h2>
+
+        <div class="overflow-hidden text-gray-700 bg-white border-t border-b shadow sm:rounded sm:border">
+
+          <div class="relative px-6 py-4 border-b">
+            <ul>
+              <li class="absolute top-0 right-0 mt-4 mr-4">
+                3 visits
+              </li>
+              <li><a href="#" class="underline">http://hn-bit.com/example</a></li>
+              <li>1 week ago</li>
+              <li>http://example.com/blog/example/1</li>
+            </ul>
+          </div>
+
+          <div class="relative px-6 py-4 border-b">
+            <ul>
+              <li class="absolute top-0 right-0 mt-4 mr-4">
+                3 visits
+              </li>
+              <li><a href="#" class="underline">http://hn-bit.com/example</a></li>
+              <li>3 week ago</li>
+              <li>http://example.com/blog/example/1</li>
+            </ul>
+          </div>
+
+          <div class="relative px-6 py-4 border-b">
+            <ul>
+              <li class="absolute top-0 right-0 mt-4 mr-4">
+                3 visits
+              </li>
+              <li><a href="#" class="underline">http://hn-bit.com/example</a></li>
+              <li>8 months ago</li>
+              <li>http://example.com/blog/example/1</li>
+            </ul>
+          </div>
+
+          <div class="relative px-6 py-4 border-b">
+            <ul>
+              <li class="absolute top-0 right-0 mt-4 mr-4">
+                3 visits
+              </li>
+              <li><a href="#" class="underline">http://hn-bit.com/example</a></li>
+              <li>1 year ago</li>
+              <li>http://example.com/blog/example/1</li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+</div>
