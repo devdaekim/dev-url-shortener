@@ -7,11 +7,19 @@ use Livewire\Component;
 
 class LinksList extends Component
 {
+
+    protected $listeners = ['loadList'];
+
     public $shortened_links = null;
 
     public function mount()
     {
-        $this->shortened_links = Link::with('word')->latest()->get();
+        $this->loadList();
+    }
+
+    public function loadList()
+    {
+        $this->shortened_links = Link::with('word')->orderBy('updated_at', 'DESC')->get();
     }
 
     public function render()

@@ -9,13 +9,13 @@
               {{-- long url --}}
               <div class="w-full mb-4 md:mr-2 md:mb-0">
                 <input wire:model.debounce='long_url' class="form-input w-full px-3 py-2 text-sm leading-tight text-gray-700 shadow appearance-none focus:outline-none focus:shadow-outline @error('long_url') border-red-500 @enderror" id="long_url" type="text" placeholder="Long URL (required)" />
-                <p class="mt-2 text-sm leading-tight text-red-500">@error('long_url'){{ $message }}@enderror</p>
+                <p class="h-5 mt-2 text-sm leading-tight text-red-500">@error('long_url'){{ $message }}@enderror</p>
               </div>
 
               {{-- description url --}}
               <div class="w-full md:ml-2">
                 <input wire:model.debounce='description' class="form-input w-full px-3 py-2 text-sm leading-tight text-gray-700 shadow appearance-none focus:outline-none focus:shadow-outline @error('description') border-red-500 @enderror" id="description" type="text" placeholder="Short URL keyword (optional)" />
-                <p class="mt-2 text-sm leading-tight text-red-500">@error('description'){{ $message }}@enderror</p>
+                <p class="h-5 mt-2 text-sm leading-tight text-red-500">@error('description'){{ $message }}@enderror</p>
               </div>
 
               {{-- private checkbox --}}
@@ -36,7 +36,7 @@
                 </svg>
                 <span>Shorten</span>
               </button>
-              <p>
+              <p class="h-5 font-bold">
                 <span
                 x-data="{open: false}"
                 x-init="
@@ -55,6 +55,13 @@
         </div>
       </form>
     </div>
-
+    {{-- <x-table>
+      <x-slot name="head">
+        <x-table.heading></x-table.heading>
+      </x-slot>
+      <x-slot name="body">
+        <x-table.row></x-table.row>
+      </x-slot>
+    </x-table> --}}
     @livewire('links-list')
 </div>

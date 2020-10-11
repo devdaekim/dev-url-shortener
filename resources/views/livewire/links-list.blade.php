@@ -1,7 +1,7 @@
 <div class="w-full px-4 mb-6 lg:mb-0">
     <h2 class="text-2xl font-bold">Recent Links</h2>
 
-    <div class="overflow-hidden text-gray-700 bg-white border-t border-b shadow sm:rounded sm:border">
+    <div wire:init='loadList' class="overflow-hidden text-gray-700 bg-white border-t border-b shadow sm:rounded sm:border">
         @foreach($shortened_links as $link)
         <div class="relative px-6 py-4 border-b
         @if($link->private) border-l-blue-300 border-l-4 @endif
