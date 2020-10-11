@@ -28,30 +28,26 @@
 
   {{-- header --}}
   <div class="bg-white">
-    <div class="container px-4 mx-auto">
+    <div class="container pr-3 mx-auto">
       <div class="flex items-center py-4 md:justify-between">
         {{-- logo --}}
-        <div class="w-1/2 text-2xl font-medium text-center text-white md:w-auto">
-          <img src="{{ asset('images/hn-bit-logo.png') }}" alt="Hn-Bit" class="w-1/4">
+        <div class="w-1/2 text-2xl font-medium text-center text-white">
+          <img src="{{ asset('images/hn-bit-logo.png') }}" alt="HN-Bit Shortened Dev Links" class="w-56">
+          <h1 class="hidden">HN-Bit Shortened Dev Links</h1>
         </div>
-        <div class="w-1/4 text-right md:w-auto md:flex">
+        <div class="justify-end w-1/2 text-right md:flex md:items-center">
           <div>
-            <img class="inline-block w-8 h-8 rounded-full" src="https://avatars0.githubusercontent.com/u/4323180?s=460&v=4" alt="">
+            {{ auth()->user()->name }}
           </div>
-          <div class="hidden ml-2 md:block md:flex md:items-center">
-            <span class="mr-1 text-sm text-white">
-              {{-- name comes here when logged in --}}
-            </span>
-            <div>
-            {{-- login/logout/register link --}}
-            </div>
+          <div>
+              <a href="{{ route('logout') }}">logout</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="container flex-grow pt-6 pb-8 mx-auto sm:px-4">
+  <div class="container pt-6 pb-8 mx-auto">
    {{ $slot }}
   </div>
 </div>

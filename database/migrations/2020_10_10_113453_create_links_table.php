@@ -18,7 +18,6 @@ class CreateLinksTable extends Migration
             $table->string('long_url');
             $table->foreignId('word_id')->constrained();
             $table->string('description', 140)->nullable();
-            $table->boolean('private')->default(false);
             $table->bigInteger('user_id')->nullable();
             $table->integer('counts')->default(0);
             $table->timestamps();

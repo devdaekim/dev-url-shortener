@@ -1,7 +1,7 @@
 <div>
    {{-- form --}}
     <div class="mb-6">
-      <form wire:submit.prevent='shorten' class="px-6">
+      <form wire:submit.prevent='shorten' class="px-3">
 
         <div class="flex items-start justify-between">
           <div class="w-8/12 mb-4 md:flex md:justify-between">
@@ -19,12 +19,11 @@
               </div>
 
               {{-- private checkbox --}}
-              <div>
+              <div class="w-6">
                   <label class="inline-flex items-center mt-2 transition duration-150 ease-in-out md:ml-4">
-                <input wire:model='private' type="checkbox" class="w-5 h-5 text-blue-600 shadow form-checkbox">
-                <span class="ml-2 text-sm text-gray-700">Private?</span>
-                <div class="absolute top-auto right-auto z-20 hidden p-8 mt-auto text-white bg-blue-800 rounded"><p>Are you sure you want this private?</p> <div class="flex items-center"><button class="px-4 py-2 mr-4">Cancel</button> <button class="px-4 py-2 text-sm font-bold text-white bg-red-500 rounded">Proceed</button></div></div>
-              </label>
+                    <input wire:model='private' type="checkbox" class="w-5 h-5 text-blue-600 shadow form-checkbox">
+                    <span class="ml-2 text-sm text-gray-700">Private?</span>
+                  </label>
               </div>
 
             </div>
@@ -57,7 +56,7 @@
       </form>
     </div>
 
-    <div class="px-2">
+    <div class="">
       <div class="w-full px-4 mb-6 lg:mb-0">
         <h2 class="text-2xl font-bold">Recent Links</h2>
 

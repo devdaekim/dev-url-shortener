@@ -30,12 +30,12 @@ class ShortenedLink extends Component
      *
      * @return void
      */
-    private function toggleAvailable($word_id)
-    {
-        $word = Word::find($word_id);
-        $word->available ? false : true;
-        $word->save();
-    }
+    // private function toggleAvailable($word_id)
+    // {
+    //     $word = Word::find($word_id);
+    //     $word->available = $word->available ? false : true;
+    //     $word->save();
+    // }
 
     /**
      * Processing the Shorten URL form
@@ -56,30 +56,36 @@ class ShortenedLink extends Component
         $link = Link::where('long_url', $data['long_url'])->first();
 
         if ($link) {
-            // 3.2 if exists, update & set word available
-            $this->toggleAvailable($link->word_id);
+            // 3.2 if exists, re-generate & set the previous word available
+            //$this->toggleAvailable($link->word_id);
+            $link->word->available = true;
+            $link->word->save();
+
             $link->word_id = $data['word_id'];
             $link->description = $data['description'];
-            if ($link->private) {
-                $link->private = $data['private'];
-                $link->private = auth()->id();
-            }
+            $this->user_id = $this->private ? auth()->id() : null;
             $link->counts = 0;
             $link->save();
         } else {
             // 3.3 not exists. create.
-            Link::create([
-                'long_url' => $data['long_url'],
-                'word_id' => $data['word_id'],
-                'description' => $data['description'],
-                'private' => $data['private'],
-                'counts' => 0,
-            ]);
+            $link = new Link();
+            $link->long_url = $data['long_url'];
+            $link->word_id = $data['word_id'];
+            $link->description = $data['description'];
+            $this->user_id = $this->private ? auth()->id() : null;
+            $link->save();
+
             // 4. set the word unavailable
-            $this->toggleAvailable($data['word_id']);
+            $link->word->available = false;
+            $link->word->save();
         }
 
-        // 5. emit(?) to the list of links to be re-freshed and the new one on top
+        // 5. reset the form
+        $this->long_url = null;
+        $this->description = null;
+        $this->private = false;
+
+        // 6. emit(?) to the list of links to be re-freshed and the new one on top
         $this->emitSelf('notify-saved');
     }
 

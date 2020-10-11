@@ -17,4 +17,16 @@ use Illuminate\Support\Facades\Route;
 //     return view('components.layouts.app');
 // });
 
-Route::get('/', App\Http\Livewire\ShortenedLink::class);
+
+Route::middleware('auth')->group(function () {
+  Route::get('/', App\Http\Livewire\ShortenedLink::class);
+  Route::get('/logout', function () {
+    auth()->logout();
+    return redirect()->route('login');
+  })->name('logout');
+});
+
+Route::middleware('guest')->group(function () {
+  Route::get('/register', App\Http\Livewire\Auth\Register::class)->name('register');
+  Route::get('/login', App\Http\Livewire\Auth\Login::class)->name('login');
+});

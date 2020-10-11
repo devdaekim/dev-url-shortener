@@ -15,7 +15,7 @@ class Link extends Model
      * @var array
      */
     protected $fillable = [
-        'long_url', 'word_id', 'description', 'private', 'user_id', 'counts',
+        'long_url', 'word_id', 'description', 'user_id', 'counts',
     ];
 
     /**
@@ -24,7 +24,6 @@ class Link extends Model
      * @var array
      */
     protected $casts = [
-        'private' => 'boolean',
         'counts' => 'integer',
     ];
 
