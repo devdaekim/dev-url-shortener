@@ -44,4 +44,19 @@ class Link extends Model
     {
         return $this->belongsTo('App\Models\User', 'user_id');
     }
+
+    /**
+     * Shortened link
+     *
+     * @return string
+     */
+    public function getShortenedUrlAttribute()
+    {
+        return asset("/{$this->word->word}");
+    }
+
+    public function getPrivateAttribute()
+    {
+        return $this->user_id !== null ? true : false;
+    }
 }

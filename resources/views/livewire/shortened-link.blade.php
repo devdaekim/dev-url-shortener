@@ -1,7 +1,7 @@
 <div>
    {{-- form --}}
     <div class="mb-6">
-      <form wire:submit.prevent='shorten' class="px-3">
+      <form wire:submit.prevent='shorten' class="pl-4 pr-3">
 
         <div class="flex items-start justify-between">
           <div class="w-8/12 mb-4 md:flex md:justify-between">
@@ -56,57 +56,5 @@
       </form>
     </div>
 
-    <div class="">
-      <div class="w-full px-4 mb-6 lg:mb-0">
-        <h2 class="text-2xl font-bold">Recent Links</h2>
-
-        <div class="overflow-hidden text-gray-700 bg-white border-t border-b shadow sm:rounded sm:border">
-
-          <div class="relative px-6 py-4 border-b">
-            <ul>
-              <li class="absolute top-0 right-0 mt-4 mr-4">
-                3 visits
-              </li>
-              <li><a href="#" class="underline">http://hn-bit.com/example</a></li>
-              <li>1 week ago</li>
-              <li>http://example.com/blog/example/1</li>
-            </ul>
-          </div>
-
-          <div class="relative px-6 py-4 border-b">
-            <ul>
-              <li class="absolute top-0 right-0 mt-4 mr-4">
-                3 visits
-              </li>
-              <li><a href="#" class="underline">http://hn-bit.com/example</a></li>
-              <li>3 week ago</li>
-              <li>http://example.com/blog/example/1</li>
-            </ul>
-          </div>
-
-          <div class="relative px-6 py-4 border-b">
-            <ul>
-              <li class="absolute top-0 right-0 mt-4 mr-4">
-                3 visits
-              </li>
-              <li><a href="#" class="underline">http://hn-bit.com/example</a></li>
-              <li>8 months ago</li>
-              <li>http://example.com/blog/example/1</li>
-            </ul>
-          </div>
-
-          <div class="relative px-6 py-4 border-b">
-            <ul>
-              <li class="absolute top-0 right-0 mt-4 mr-4">
-                3 visits
-              </li>
-              <li><a href="#" class="underline">http://hn-bit.com/example</a></li>
-              <li>1 year ago</li>
-              <li>http://example.com/blog/example/1</li>
-            </ul>
-          </div>
-
-        </div>
-      </div>
-    </div>
+    @livewire('links-list')
 </div>

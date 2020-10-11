@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Resources\LinkResource;
 use App\Models\Link;
 use App\Models\Word;
 use Livewire\Component;
@@ -13,6 +14,8 @@ class ShortenedLink extends Component
     public $private = false;
     //public $counts = 0;
 
+
+
     protected $rules = [
         'long_url' => 'required|url',
         'description' => 'sometimes|nullable|max:140',
@@ -23,19 +26,6 @@ class ShortenedLink extends Component
     {
         $this->validateOnly($propertyName);
     }
-
-    /**
-     * Toogle the availablility of a specific Word
-     * @param mixed $word_id
-     *
-     * @return void
-     */
-    // private function toggleAvailable($word_id)
-    // {
-    //     $word = Word::find($word_id);
-    //     $word->available = $word->available ? false : true;
-    //     $word->save();
-    // }
 
     /**
      * Processing the Shorten URL form
