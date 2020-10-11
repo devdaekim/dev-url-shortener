@@ -9,7 +9,6 @@ class LinksList extends Component
 {
 
     protected $listeners = ['loadList'];
-
     public $shortened_links = null;
 
     public function mount()
@@ -19,7 +18,12 @@ class LinksList extends Component
 
     public function loadList()
     {
-        $this->shortened_links = Link::with('word')->orderBy('updated_at', 'DESC')->get();
+        $this->shortened_links = Link::with('word')
+            ->where(function ($query) {
+                $query->whereNull('user_id');
+                $query->orWhere('user_id', auth()->id());
+            })
+            ->orderBy('updated_at', 'DESC')->get();
     }
 
     public function render()

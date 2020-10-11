@@ -12,9 +12,6 @@ class ShortenedLink extends Component
     public $long_url = null;
     public $description = null;
     public $private = false;
-    //public $counts = 0;
-
-
 
     protected $rules = [
         'long_url' => 'required|url',
@@ -27,6 +24,13 @@ class ShortenedLink extends Component
         $this->validateOnly($propertyName);
     }
 
+    /**
+     * Update an existing link
+     *
+     * @param mixed $link
+     * @param mixed $data
+     * @return void
+     */
     public function updateLink($link, $data)
     {
         $link->word->available = true;
@@ -39,6 +43,12 @@ class ShortenedLink extends Component
         $link->save();
     }
 
+    /**
+     * Create a new shortened link
+     *
+     * @param mixed $data
+     * @return void
+     */
     public function createLink($data)
     {
         $link = new Link();
@@ -48,7 +58,7 @@ class ShortenedLink extends Component
         $link->user_id = $this->private ? auth()->id() : null;
         $link->save();
 
-        // 4. set the word unavailable
+        // set the word unavailable
         $link->word->available = false;
         $link->word->save();
     }
