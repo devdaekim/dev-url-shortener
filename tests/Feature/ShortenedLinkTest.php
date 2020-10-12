@@ -11,7 +11,7 @@ use Tests\TestCase;
 
 class ShortenedLinkTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use WithFaker;
     /**
      *
      */

@@ -26,6 +26,14 @@ class LinksList extends Component
             ->orderBy('updated_at', 'DESC')->get();
     }
 
+    public function clickLink(Link $link)
+    {
+        $link->counts++;
+        $link->timestamps = false; // to prevent updated_at updated
+        $link->save();
+        $this->loadList();
+    }
+
     public function render()
     {
         return view('livewire.links-list');

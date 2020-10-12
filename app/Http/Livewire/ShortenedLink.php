@@ -71,11 +71,12 @@ class ShortenedLink extends Component
     {
         $data = $this->validate();
 
-        // 1. get an array of ids of available words
-        $words_available = Word::available();
+        // TODO remove if no errors: 1. get an array of ids of available words
+        // TODO remove if no errors: $words_available = Word::available();
 
-        // 2. get randum id from the array & assign to word_id
-        $data['word_id'] = array_rand($words_available, 1);
+        // 1. get the id of a random available word
+        // TODO remove if no errors: $data['word_id'] = array_rand($words_available, 1);
+        $data['word_id'] = (Word::available())->id;
 
         // 3. update or create
         // 3.1 check if the url exists
@@ -98,7 +99,7 @@ class ShortenedLink extends Component
         $this->emitSelf('notify-saved');
 
         // 6. refresh the shortened links list
-        $this->emitTo('links-linkWW', 'loadList');
+        $this->emitTo('links-list', 'loadList');
     }
 
     public function render()

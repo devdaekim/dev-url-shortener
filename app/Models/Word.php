@@ -41,13 +41,15 @@ class Word extends Model
     }
 
     /**
-     * Scope a query to only include ids of available words
+     * Scope a query to only return the id of a random availabe word
+     * returns {id: n}
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeAvailable($query)
     {
-        return $query->where('available', true)->pluck('id')->toArray();
+        return $query->select('id')->where('available', true)->inRandomOrder()->first();
+        // TODO  remove if not errors: return $query->where('available', true)->pluck('id')->toArray();
     }
 }
