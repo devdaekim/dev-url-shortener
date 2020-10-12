@@ -11,7 +11,13 @@
                     {{ $link->counts }} {{ Str::plural('visit', $link->counts) }}
                 </li>
                 <li>
-                    <a wire:click.stop="clickLink({{ $link->id }})" href="{{ $link->shortened_url }}" class="text-blue-600 underline" target="_blank">{{ $link->shortened_url }}</a>
+                    <a
+                        wire:click.stop="clickLink({{ $link->id }})"
+                        href="{{ $link->shortened_url }}"
+                        class="text-blue-600 underline"
+                        target="_blank"
+                        rel="nofollow noopener"
+                    >{{ $link->shortened_url }}</a>
 
                 </li>
                 <li>{{ $link->updated_at->diffForHumans() }}</li>

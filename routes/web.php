@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\RedirectToLongUrl;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,10 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('components.layouts.app');
-// });
-
+// REFACTOR use invokable controller: LinkRedirectController
 
 Route::middleware('auth')->group(function () {
   Route::get('/', App\Http\Livewire\ShortenedLink::class);
@@ -30,3 +28,5 @@ Route::middleware('guest')->group(function () {
   Route::get('/register', App\Http\Livewire\Auth\Register::class)->name('register');
   Route::get('/login', App\Http\Livewire\Auth\Login::class)->name('login');
 });
+
+Route::get('/{word}', RedirectToLongUrl::class);
