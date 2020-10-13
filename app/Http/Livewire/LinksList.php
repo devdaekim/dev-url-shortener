@@ -10,7 +10,7 @@ class LinksList extends Component
 {
     use WithPagination;
 
-    protected $listeners = ['searchWithTerm'];
+    protected $listeners = ['search' => '$refresh'];
     protected $shortened_links = null;
     public $search_term = '';
     public $private = false;
@@ -28,7 +28,7 @@ class LinksList extends Component
         $link->counts++;
         $link->timestamps = false; // to prevent updated_at updated
         $link->save();
-        $this->loadList();
+        $this->search();
     }
 
     /**
@@ -42,33 +42,11 @@ class LinksList extends Component
     }
 
     /**
-     * Toogle searching private
-     *
-     * @return void
-     */
-    public function togglePrivate()
-    {
-        $this->private ? $this->searchPrivate() : $this->searchWithTerm();
-    }
-
-    /**
-     * Retrieve private links
+     * Get initial data & Search
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    private function searchPrivate()
-    {
-        if ($this->private && $this->search_term === '') {
-            $this->shortened_links = Link::with('word')->where('user_id', auth()->id())->orderBy('updated_at', 'DESC')->paginate($this->items_per_page);
-        }
-    }
-
-    /**
-     * Search by search term
-     *
-     * @return Illuminate\Database\Eloquent\Collection
-     */
-    public function searchWithTerm()
+    public function search()
     {
         $search_term = "%{$this->search_term}%";
         $this->shortened_links = Link::with('word')->where(function ($query) {
@@ -78,26 +56,18 @@ class LinksList extends Component
             $query->orWhere('user_id', auth()->id());
         })
             ->where(function ($query) use ($search_term) {
-                $query->where('long_url', 'like', $search_term);
-                $query->orWhere('description', 'like', $search_term);
+                if ($this->search_term !== '') {
+                    $query->where('long_url', 'like', $search_term);
+                    $query->orWhere('description', 'like', $search_term);
+                }
             })->orderBy('updated_at', 'DESC')->paginate($this->items_per_page);
-    }
 
-    /**
-     * Resetting Pagination After Filtering Data
-     *
-     * @return void
-     */
-    public function updatingSearch()
-    {
-        $this->resetPage();
+        $this->page = 1; // always set the page 1. this will remove page number query from url. but search/filter does not work without this,.
     }
 
     public function render()
     {
-        $this->searchWithTerm();
-        $this->searchPrivate();
-
+        $this->search();
         return view('livewire.links-list', [
             'shortened_links' => $this->shortened_links
         ]);

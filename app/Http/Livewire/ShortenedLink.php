@@ -99,7 +99,7 @@ class ShortenedLink extends Component
         $this->emitSelf('notify-saved');
 
         // 6. refresh the shortened links list
-        $this->emitTo('links-list', 'loadList');
+        $this->emitTo('links-list', 'search');
     }
 
     public function render()

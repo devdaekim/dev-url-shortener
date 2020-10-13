@@ -7,7 +7,6 @@
             <label class="inline-flex items-center mt-2 transition duration-150 ease-in-out md:ml-4">
             <input
                 wire:model="private"
-                @change="$wire.togglePrivate()"
                 type="checkbox"
                 class="w-5 h-5 text-blue-600 shadow form-checkbox">
             <span class="ml-2 text-sm text-gray-600">Private</span>
@@ -65,8 +64,6 @@
                 <p>No shortened links exist.</p>
             </div>
         @endforelse
-
-
 
     </div>
     <div class="mt-4">
