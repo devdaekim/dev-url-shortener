@@ -65,40 +65,32 @@ class ShortenedLink extends Component
 
     /**
      * Processing the Shorten URL form
-     * @return mixed
+     *
+     * @return void
      */
     public function shorten()
     {
         $data = $this->validate();
 
-        // TODO remove if no errors: 1. get an array of ids of available words
-        // TODO remove if no errors: $words_available = Word::available();
 
         // 1. get the id of a random available word
-        // TODO remove if no errors: $data['word_id'] = array_rand($words_available, 1);
         $data['word_id'] = (Word::available())->id;
 
-        // 3. update or create
-        // 3.1 check if the url exists
+        // 2. update or create
+        // 2.1 check if the url exists
         $link = Link::where('long_url', $data['long_url'])->first();
 
-        if ($link) {
-            // 3.2 if exists, re-generate & set the previous word available
-            $this->updateLink($link, $data);
-        } else {
-            // 3.3 not exists. create.
-            $this->createLink($data);
-        }
+        // 2.2 if exists, re-generate & set the previous word available
+        // 2.3 not exists. create.
+        $link ? $this->updateLink($link, $data) : $this->createLink($data);
 
-        // 4. reset the form
-        $this->long_url = null;
-        $this->description = null;
-        $this->private = false;
+        // 3. reset the form
+        $this->reset();
 
-        // 5. notification of saving
+        // 4. notification of saving
         $this->emitSelf('notify-saved');
 
-        // 6. refresh the shortened links list
+        // 5. refresh the shortened links list
         $this->emitTo('links-list', 'search');
     }
 

@@ -14,7 +14,7 @@ class LinksList extends Component
     protected $shortened_links = null;
     public $search_term = '';
     public $private = false;
-    private $items_per_page = 2;
+    private $items_per_page = 10;
 
     /**
      * Increment click counts

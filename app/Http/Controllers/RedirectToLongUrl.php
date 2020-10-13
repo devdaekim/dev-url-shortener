@@ -16,6 +16,8 @@ class RedirectToLongUrl extends Controller
     public function __invoke($word)
     {
         $word = Word::where('word', $word)->first();
+        $word->link->counts++;
+        $word->link->save();
         return redirect()->away($word->link->long_url);
     }
 }

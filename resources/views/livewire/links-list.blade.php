@@ -4,24 +4,24 @@
     <div class="flex justify-end space-x-4">
         {{-- private checkbox --}}
         <div x-data>
-            <label class="inline-flex items-center mt-2 transition duration-150 ease-in-out md:ml-4">
-            <input
-                wire:model="private"
-                type="checkbox"
-                class="w-5 h-5 text-blue-600 shadow form-checkbox">
-            <span class="ml-2 text-sm text-gray-600">Private</span>
-            </label>
+             <x-input.checkbox
+                   wire:model='private'
+                   label='Private'
+                />
         </div>
 
         {{-- Search input --}}
         <div
             x-data="{open: @entangle('search_term')}"
             class="relative flex flex-wrap items-stretch w-full mb-4 sm:w-1/3">
-            <input
-                wire:model.debounce='search_term'
-                type="text"
-                placeholder="search"
-                class="relative w-full px-3 py-2 pr-10 text-sm leading-tight text-gray-700 shadow appearance-none form-input focus:outline-none focus:shadow-outline"/>
+
+            <x-input.text
+                  wire:model.debounce='search_term'
+                  type="text"
+                  placeholder="search"
+                  search="true"
+                />
+
             <span
                 x-show="open" @click="$wire.clearSearch()"
                 class="absolute right-0 z-10 items-center justify-center w-8 h-full py-2 pr-3 text-base font-normal leading-snug text-center text-gray-500 bg-transparent rounded cursor-pointer">
