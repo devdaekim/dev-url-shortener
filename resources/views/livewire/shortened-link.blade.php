@@ -55,13 +55,6 @@
         </div>
       </form>
     </div>
-    {{-- <x-table>
-      <x-slot name="head">
-        <x-table.heading></x-table.heading>
-      </x-slot>
-      <x-slot name="body">
-        <x-table.row></x-table.row>
-      </x-slot>
-    </x-table> --}}
+
     @livewire('links-list')
 </div>

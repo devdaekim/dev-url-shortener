@@ -14,8 +14,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// REFACTOR use invokable controller: LinkRedirectController
-
 Route::middleware('auth')->group(function () {
   Route::get('/', App\Http\Livewire\ShortenedLink::class);
   Route::get('/logout', function () {
