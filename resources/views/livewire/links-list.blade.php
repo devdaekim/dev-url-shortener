@@ -6,6 +6,7 @@
         <div x-data>
             <label class="inline-flex items-center mt-2 transition duration-150 ease-in-out md:ml-4">
             <input
+                wire:model="private"
                 @change="$wire.togglePrivate()"
                 type="checkbox"
                 class="w-5 h-5 text-blue-600 shadow form-checkbox">
@@ -15,10 +16,10 @@
 
         {{-- Search input --}}
         <div
-            x-data="{open: @entangle('searchTerm')}"
+            x-data="{open: @entangle('search_term')}"
             class="relative flex flex-wrap items-stretch w-full mb-4 sm:w-1/3">
             <input
-                wire:model.debounce='searchTerm'
+                wire:model.debounce='search_term'
                 type="text"
                 placeholder="search"
                 class="relative w-full px-3 py-2 pr-10 text-sm leading-tight text-gray-700 shadow appearance-none form-input focus:outline-none focus:shadow-outline"/>
@@ -33,8 +34,7 @@
         </div>
     </div>
 
-
-    <div wire:init='loadList' class="overflow-hidden text-gray-700 bg-white border-t border-b shadow sm:rounded sm:border">
+    <div class="overflow-hidden text-gray-700 bg-white border-t border-b shadow sm:rounded sm:border">
         @forelse($shortened_links as $link)
             <div class="relative px-6 py-4 border-b
                 @if($link->private) border-l-blue-300 border-l-4 @endif
@@ -65,6 +65,11 @@
                 <p>No shortened links exist.</p>
             </div>
         @endforelse
-    </div>
 
+
+
+    </div>
+    <div class="mt-4">
+        {{ $shortened_links->links() }}
+    </div>
 </div>

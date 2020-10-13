@@ -4,38 +4,17 @@ namespace App\Http\Livewire;
 
 use App\Models\Link;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class LinksList extends Component
 {
+    use WithPagination;
 
-    protected $listeners = ['loadList'];
-    public $shortened_links = null;
-    public $searchTerm = '';
+    protected $listeners = ['searchWithTerm'];
+    protected $shortened_links = null;
+    public $search_term = '';
     public $private = false;
-
-    /**
-     * Load data when mounting the component
-     * @return void
-     */
-    public function mount()
-    {
-        $this->loadList();
-    }
-
-    /**
-     * Retrieve all non-private & private shortened links
-     *
-     * @return Illuminate\Database\Eloquent\Collection
-     */
-    public function loadList()
-    {
-        $this->shortened_links = Link::with('word')
-            ->where(function ($query) {
-                $query->whereNull('user_id');
-                $query->orWhere('user_id', auth()->id());
-            })
-            ->orderBy('updated_at', 'DESC')->get();
-    }
+    private $items_per_page = 2;
 
     /**
      * Increment click counts
@@ -59,7 +38,7 @@ class LinksList extends Component
      */
     public function clearSearch()
     {
-        $this->searchTerm = '';
+        $this->search_term = '';
     }
 
     /**
@@ -69,7 +48,7 @@ class LinksList extends Component
      */
     public function togglePrivate()
     {
-        $this->private = $this->private ? false : true;
+        $this->private ? $this->searchPrivate() : $this->searchWithTerm();
     }
 
     /**
@@ -79,8 +58,8 @@ class LinksList extends Component
      */
     private function searchPrivate()
     {
-        if ($this->private && $this->searchTerm === '') {
-            $this->shortened_links = Link::with('word')->where('user_id', auth()->id())->orderBy('updated_at', 'DESC')->get();
+        if ($this->private && $this->search_term === '') {
+            $this->shortened_links = Link::with('word')->where('user_id', auth()->id())->orderBy('updated_at', 'DESC')->paginate($this->items_per_page);
         }
     }
 
@@ -89,19 +68,29 @@ class LinksList extends Component
      *
      * @return Illuminate\Database\Eloquent\Collection
      */
-    private function searchWithTerm()
+    public function searchWithTerm()
     {
-        $searchTerm = "%{$this->searchTerm}%";
+        $search_term = "%{$this->search_term}%";
         $this->shortened_links = Link::with('word')->where(function ($query) {
             if (!$this->private) {
                 $query->whereNull('user_id');
             }
             $query->orWhere('user_id', auth()->id());
         })
-            ->where(function ($query) use ($searchTerm) {
-                $query->where('long_url', 'like', $searchTerm);
-                $query->orWhere('description', 'like', $searchTerm);
-            })->orderBy('updated_at', 'DESC')->get();
+            ->where(function ($query) use ($search_term) {
+                $query->where('long_url', 'like', $search_term);
+                $query->orWhere('description', 'like', $search_term);
+            })->orderBy('updated_at', 'DESC')->paginate($this->items_per_page);
+    }
+
+    /**
+     * Resetting Pagination After Filtering Data
+     *
+     * @return void
+     */
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 
     public function render()
@@ -109,6 +98,8 @@ class LinksList extends Component
         $this->searchWithTerm();
         $this->searchPrivate();
 
-        return view('livewire.links-list');
+        return view('livewire.links-list', [
+            'shortened_links' => $this->shortened_links
+        ]);
     }
 }

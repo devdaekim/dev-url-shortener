@@ -46,7 +46,7 @@ class Link extends Model
     }
 
     /**
-     * Shortened link
+     * Construct Shortened link
      *
      * @return string
      */
@@ -55,6 +55,11 @@ class Link extends Model
         return asset("/{$this->word->word}");
     }
 
+    /**
+     * Private link or not
+     *
+     * @return bool
+     */
     public function getPrivateAttribute()
     {
         return $this->user_id !== null ? true : false;
