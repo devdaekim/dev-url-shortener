@@ -1,61 +1,59 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="http://hnbit.localhost" target="_blank"><img src="http://hnbit.localhost/images/hn-bit-logo.png" width="250"></a></p>
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# About HN-BIT Shortened DEV links
 
-## About Laravel
+HN-BIT Shortened DEV links is a simple URL shortener service, developed in [Laravel v8](https://laravel.com) and [Laravel Livewire v2](https://laravel-livewire.com). Users can enter a valid URL and get back a shortened version using a human readable word as a substitute for their URL.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Specification
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   The word list used to shorten the URLs is pulled form the EFF's short wordlist.
+-   A user can enter the same URLs many times, but the resulting short URL always is unique.
+-   A user can enter a short (140 characters) description of their URL.
+-   When a shortened URL is visited, a counter for that URL is incremented to indicate how many times the shortened link has been used.
+-   The main page for the site shows a listing of the 10 most recent shortend URLs, along with their description, the original URL and the visit counts.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Additional Specification
 
-## Learning Laravel
+-   The list of the shortened URLs is paginated.
+-   A user can search the listings using the private checkbox and/or the search box.
+-   The search looks up the long URLs and the description, if any.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Libaries used
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   [Laravel Livewire](https://laravel-livewire.com) for frontend, instead of Vue.js
+-   [Laravel Debugbar](https://github.com/barryvdh/laravel-debugbar)
+-   No jetstream implemented, which means the files for authentication (inc. forgot passwort/reset password) are all done manually using livewire components.
 
-## Laravel Sponsors
+## Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+-   This app is a compressed archive. Unzip in a folder and then excute the next command:
 
-### Premium Partners
+```shell
+composer install
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+-   Seeding words table. Currently the name of the database is 'hnbit':
 
-## Contributing
+```shell
+php artisan db:seed
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+For the server requirements, please visit [here](https://laravel.com/docs/8.x#server-requirements)
 
-## Code of Conduct
+## Configuration: .env
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+-   Change the value of the **APP_URL**. Currently it is http://hnbit.localhost
+-   The debugbar is enabled. To set it off, set **APP_DEBUG** to false.
+-   Change the name of the database (**DB_DATABASE**). Currently it is 'hnbit'.
+-   Password reset email will be sent to 'laravel.log' in the storage as **MAIL_MAILER** is set as log.
+-   to re-generate a key, use the next command:
 
-## Security Vulnerabilities
+```shell
+php artisan key:generate
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+## Using the app
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+-   A user must register & login.
+-   No email verification required.
+-   The password must be 8-20 long.
