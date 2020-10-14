@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware('guest')->group(function () {
   Route::get('/register', App\Http\Livewire\Auth\Register::class)->name('register');
   Route::get('/login', App\Http\Livewire\Auth\Login::class)->name('login');
+  Route::get('/forgot-password', App\Http\Livewire\ForgotPassword::class)->name('forgot-password');
+  Route::get('/reset-password/{token}', App\Http\Livewire\ResetPassword::class)->name('password.reset');
 });
 
 Route::get('/{word}', RedirectToLongUrl::class);

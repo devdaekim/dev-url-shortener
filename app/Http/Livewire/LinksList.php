@@ -17,17 +17,12 @@ class LinksList extends Component
     private $items_per_page = 10;
 
     /**
-     * Increment click counts
-     *
-     * @param Link $link
+     * Deal with link click
      *
      * @return void
      */
-    public function clickLink(Link $link)
+    public function clickLink()
     {
-        $link->counts++;
-        $link->timestamps = false; // to prevent updated_at updated
-        $link->save();
         $this->search();
     }
 

@@ -9,6 +9,7 @@ class Login extends Component
 {
     public $email = '';
     public $password = '';
+    public $message = '';
 
     protected $rules = [
         'email' => 'required|email',

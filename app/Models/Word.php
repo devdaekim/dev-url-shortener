@@ -50,6 +50,5 @@ class Word extends Model
     public function scopeAvailable($query)
     {
         return $query->select('id')->where('available', true)->inRandomOrder()->first();
-        // TODO  remove if not errors: return $query->where('available', true)->pluck('id')->toArray();
     }
 }

@@ -4,7 +4,7 @@
     <div>
       <img src="{{ asset('images/hn-bit-logo.png') }}" alt="HN-Bit Shortened Dev Link" class="w-48">
       <h1 class="mt-8 text-3xl">Registration</h1>
-      <form wire:submit.prevent='register' id="registrationForm" class="mt-8">
+      <form wire:submit.prevent='register' class="mt-8">
         <div>
           <x-input.text
             wire:model.lazy='name'

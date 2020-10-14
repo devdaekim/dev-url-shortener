@@ -44,7 +44,7 @@
                 </li>
                 <li>
                     <a
-                        wire:click.stop="clickLink({{ $link->id }})"
+                        wire:click.stop="clickLink()"
                         href="{{ $link->shortened_url }}"
                         class="text-blue-600 underline"
                         target="_blank"
