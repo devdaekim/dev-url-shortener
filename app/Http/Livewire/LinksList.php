@@ -12,8 +12,9 @@ class LinksList extends Component
 
     protected $listeners = ['search' => '$refresh'];
     protected $shortened_links = null;
-    public $search_term = '';
+    public $searchTerm = '';
     public $private = false;
+    protected $queryString = ['searchTerm',];
     private $items_per_page = 10;
 
     /**
@@ -26,14 +27,14 @@ class LinksList extends Component
         $this->search();
     }
 
-    /**
-     * Empty the search input
-     *
-     * @return void
-     */
-    public function clearSearch()
+    public function updatingSearchTerm()
     {
-        $this->search_term = '';
+        $this->resetPage();
+    }
+
+    public function updatingPrivate()
+    {
+        $this->resetPage();
     }
 
     /**
@@ -43,21 +44,21 @@ class LinksList extends Component
      */
     public function search()
     {
-        $search_term = "%{$this->search_term}%";
+        $searchTerm = "%{$this->searchTerm}%";
+
         $this->shortened_links = Link::with('word')->where(function ($query) {
             if (!$this->private) {
                 $query->whereNull('user_id');
             }
             $query->orWhere('user_id', auth()->id());
         })
-            ->where(function ($query) use ($search_term) {
-                if ($this->search_term !== '') {
-                    $query->where('long_url', 'like', $search_term);
-                    $query->orWhere('description', 'like', $search_term);
+            ->where(function ($query) use ($searchTerm) {
+                if ($this->searchTerm !== '') {
+                    $query->where('long_url', 'like', $searchTerm);
+                    $query->orWhere('description', 'like', $searchTerm);
                 }
-            })->orderBy('updated_at', 'DESC')->paginate($this->items_per_page);
-
-        $this->page = 1; // always set the page 1. this will remove page number query from url. but search/filter does not work without this,.
+            })
+            ->paginate($this->items_per_page);
     }
 
     public function render()
