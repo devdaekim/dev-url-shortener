@@ -1,5 +1,3 @@
-<p align="center"><a href="http://devurl.localhost" target="_blank"><img src="http://devurl.localhost/images/logo.svg" width="250"></a></p>
-
 # About Dev URL Shortner
 
 Dev URL Shortner is a simple URL shortener service, developed in [Laravel v8](https://laravel.com) and [Laravel Livewire v2](https://laravel-livewire.com). Users can enter a valid URL and get back a shortened version using a human readable word as a substitute for their URL.
@@ -32,13 +30,13 @@ Dev URL Shortner is a simple URL shortener service, developed in [Laravel v8](ht
 composer install
 ```
 
--   Seeding words table. Currently the name of the database is 'devurl':
+-   Seeding words table alongside an example user. Currently the name of the database is 'devurl':
 
 ```shell
 php artisan migrate --seed
 ```
 
-For the server requirements, please visit [here](https://laravel.com/docs/8.x#server-requirements)
+-   For the server requirements, please visit [here](https://laravel.com/docs/8.x#server-requirements)
 
 ## Configuration: .env
 
@@ -55,5 +53,6 @@ php artisan key:generate
 ## Using the app
 
 -   A user must register & login.
+-   The example user's email is bs@example.net and the password is password.
 -   No email verification required.
 -   The password must be 8-20 long.
