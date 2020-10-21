@@ -12,59 +12,71 @@
 
         {{-- Search input --}}
         <div
-            x-data="{open: @entangle('search_term')}"
+            x-data="{open: @entangle('searchTerm')}"
             class="relative flex flex-wrap items-stretch w-full mb-4 sm:w-1/3">
 
             <x-input.text
-                  wire:model.debounce='search_term'
-                  type="text"
+                  wire:model.debounce='searchTerm'
+                  type="search"
                   placeholder="search"
                   search="true"
                 />
-
-            <span
-                x-show="open" @click="$wire.clearSearch()"
-                class="absolute right-0 z-10 items-center justify-center w-8 h-full py-2 pr-3 text-base font-normal leading-snug text-center text-gray-500 bg-transparent rounded cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12" />
-                </svg>
-            </svg>
-            </span>
         </div>
     </div>
 
-    <div class="overflow-hidden text-gray-700 bg-white border-t border-b shadow sm:rounded sm:border">
-        @forelse($shortened_links as $link)
-            <div class="relative px-6 py-4 border-b
-                @if($link->private) border-l-blue-300 border-l-4 @endif
-            ">
-            <ul>
-                <li class="absolute top-0 right-0 mt-4 mr-4">
-                    {{ $link->counts }} {{ Str::plural('visit', $link->counts) }}
-                </li>
-                <li>
-                    <a
-                        wire:click.stop="clickLink()"
-                        href="{{ $link->shortened_url }}"
-                        class="text-blue-600 underline"
-                        target="_blank"
-                        rel="nofollow noopener"
-                    >{{ $link->shortened_url }}</a>
-
-                </li>
-                <li>{{ $link->updated_at->diffForHumans() }}</li>
-                <li>{{ $link->long_url }}</li>
-                <li class="text-gray-500">
-                    {{ $link->description }}
-                </li>
-            </ul>
-            </div>
-        @empty
-            <div class="relative px-6 py-4 border-b border-l-4 border-l-red-500">
-                <p>No shortened links exist.</p>
-            </div>
-        @endforelse
-
+    <div class="mt-4 overflow-hidden border-b border-gray-200 shadow sm:rounded-lg">
+        <table class="min-w-full divide-y divide-gray-200">
+            <thead>
+                <tr>
+                    <th class="px-6 py-3 text-left">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50">Shortened</span>
+                    </th>
+                    <th class="px-6 py-3 text-left">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50">Long</span>
+                    </th>
+                    <th class="px-6 py-3 text-left">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50">Description</span>
+                    </th>
+                    <th class="px-6 py-3 text-left">
+                       <span class="text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50">Updated</span>
+                    </th>
+                    <th class="px-6 py-3 text-right">
+                        <span class="text-xs font-medium leading-4 tracking-wider text-left text-gray-500 uppercase bg-gray-50">Visits</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="bg-white divide-y divide-gray-200">
+                 @forelse($shortened_links as $link)
+                <tr>
+                    <td class="w-4/12 px-6 py-4 @if($link->private) border-l-blue-300 border-l-4 @endif">
+                        <a
+                            wire:click.stop="clickLink()"
+                            href="{{ $link->shortened_url }}"
+                            class="text-blue-600 underline"
+                            target="_blank"
+                            rel="nofollow noopener"
+                        >{{ $link->shortened_url }}</a>
+                    </td>
+                    <td class="w-4/12 px-6 py-4">
+                        {{ $link->long_url }}
+                    </td>
+                    <td class="px-6 py-4">
+                        {{ $link->description }}
+                    </td>
+                    <td class="px-6 py-4 whitespace-no-wrap">
+                       {{ $link->updated_at->diffForHumans() }}
+                    </td>
+                    <td class="px-6 py-4 text-sm font-medium leading-5 text-right">
+                         {{ $link->counts }}
+                    </td>
+                </tr>
+                @empty
+                <tr>
+                    <td  class="w-4/12 px-6 py-4 whitespace-no-wrap" colspan="4">No users found</td>
+                </tr>
+                @endforelse
+            </tbody>
+        </table>
     </div>
     <div class="mt-4">
         {{ $shortened_links->links() }}

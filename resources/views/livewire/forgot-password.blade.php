@@ -2,7 +2,7 @@
 <div class="flex items-center justify-center h-full mx-auto">
   <div class="p-6 bg-white rounded shadow-xl md:w-1/3">
     <div>
-      <img src="{{ asset('images/hn-bit-logo.png') }}" alt="HN-Bit Shortened Dev Link" class="w-48">
+      <img src="{{ asset('images/logo.svg') }}" alt="Shortened Dev Link" class="w-48">
       <h1 class="mt-8 text-3xl">Forgot password?</h1>
       <form wire:submit.prevent='sendLink' class="mt-8">
         <div class="h-6 mb-6">

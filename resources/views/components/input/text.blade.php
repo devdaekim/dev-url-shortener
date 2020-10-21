@@ -3,7 +3,7 @@
   {{ $attributes }}
   class="form-input w-full px-3 text-sm leading-tight text-gray-700 shadow appearance-none focus:outline-none focus:shadow-outline
   {{ $error ? 'border-red-500' : ''}}
-  {{ $search ? 'pr-10' : '' }}
+  {{ $search ? '' : '' }}
   {{ $tall ? 'py-3' : 'py-2' }}
   "
    />

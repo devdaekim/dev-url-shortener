@@ -31,8 +31,8 @@
       <div class="flex items-center py-4 md:justify-between">
         {{-- logo --}}
         <div class="w-1/2">
-          <img src="{{ asset('images/hn-bit-logo.png') }}" alt="HN-Bit Shortened Dev Links" class="w-56">
-          <h1 class="hidden">HN-Bit Shortened Dev Links</h1>
+          <img src="{{ asset('images/logo.svg') }}" alt="Shortened Dev Links" class="w-56">
+          <h1 class="hidden">Shortened Dev Links</h1>
         </div>
         <div class="justify-end w-1/2 space-x-2 text-right sm:flex md:items-center">
           <div class="text-sm tracking-tighter">
