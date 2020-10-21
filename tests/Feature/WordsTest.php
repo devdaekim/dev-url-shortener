@@ -35,6 +35,12 @@ class WordsTest extends TestCase
         $this->assertFileIsReadable($path);
     }
 
+    /**
+     * Generator to populate words table
+     * @param mixed $file
+     *
+     * @return array
+     */
     private function processWordList($file)
     {
         $path = Storage::disk('local')->path($file);
