@@ -1,8 +1,8 @@
-<p align="center"><a href="http://hnbit.localhost" target="_blank"><img src="http://hnbit.localhost/images/hn-bit-logo.png" width="250"></a></p>
+<p align="center"><a href="http://devurl.localhost" target="_blank"><img src="http://devurl.localhost/images/logo.svg" width="250"></a></p>
 
-# About HN-BIT Shortened DEV links
+# About Dev URL Shortner
 
-HN-BIT Shortened DEV links is a simple URL shortener service, developed in [Laravel v8](https://laravel.com) and [Laravel Livewire v2](https://laravel-livewire.com). Users can enter a valid URL and get back a shortened version using a human readable word as a substitute for their URL.
+Dev URL Shortner is a simple URL shortener service, developed in [Laravel v8](https://laravel.com) and [Laravel Livewire v2](https://laravel-livewire.com). Users can enter a valid URL and get back a shortened version using a human readable word as a substitute for their URL.
 
 ## Specification
 
@@ -32,17 +32,17 @@ HN-BIT Shortened DEV links is a simple URL shortener service, developed in [Lara
 composer install
 ```
 
--   Seeding words table. Currently the name of the database is 'hnbit':
+-   Seeding words table. Currently the name of the database is 'devurl':
 
 ```shell
-php artisan db:seed
+php artisan migrate --seed
 ```
 
 For the server requirements, please visit [here](https://laravel.com/docs/8.x#server-requirements)
 
 ## Configuration: .env
 
--   Change the value of the **APP_URL**. Currently it is http://hnbit.localhost
+-   Change the value of the **APP_URL**. Currently it is http://devurl.localhost
 -   The debugbar is enabled. To set it off, set **APP_DEBUG** to false.
 -   Change the name of the database (**DB_DATABASE**). Currently it is 'hnbit'.
 -   Password reset email will be sent to 'laravel.log' in the storage as **MAIL_MAILER** is set as log.
