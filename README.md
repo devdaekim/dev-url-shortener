@@ -38,12 +38,13 @@ php artisan migrate --seed
 
 -   For the server requirements, please visit [here](https://laravel.com/docs/8.x#server-requirements)
 
-## Configuration: .env
+## Configuration
 
 -   Change the value of the **APP_URL**. Currently it is http://devurl.localhost
 -   The debugbar is enabled. To set it off, set **APP_DEBUG** to false.
--   Change the name of the database (**DB_DATABASE**). Currently it is 'hnbit'.
+-   Change the name of the database (**DB_DATABASE**). Currently it is 'devurl'.
 -   Password reset email will be sent to 'laravel.log' in the storage as **MAIL_MAILER** is set as log.
+-   The timezone is set to Europe/London.
 -   to re-generate a key, use the next command:
 
 ```shell
