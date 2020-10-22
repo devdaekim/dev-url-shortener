@@ -15,20 +15,10 @@ use Tests\TestCase;
 class ShortenedLinkTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
-    protected $file = 'eff_short_wordlist_2_0.txt';
 
-    private function pupulated_words_table()
+    private function populated_words_table()
     {
         return Word::create(['word' => $this->faker()->word]);
-    }
-
-    private function create_user()
-    {
-        return User::create([
-            'name' => $this->faker()->name,
-            'email' => $this->faker()->email,
-            'password' => $this->faker()->password,
-        ]);
     }
 
     /** @test */
@@ -41,8 +31,7 @@ class ShortenedLinkTest extends TestCase
     /** @test */
     public function can_see_shortened_link_component()
     {
-        $user = $this->create_user();
-        $this->actingAs($user);
+        $this->actingAs(User::factory()->create());
 
         $this->get('/')
             ->assertSuccessful()
@@ -69,7 +58,7 @@ class ShortenedLinkTest extends TestCase
     /** @test */
     public function long_url_field_is_valid_url()
     {
-        $this->pupulated_words_table();
+        $this->populated_words_table();
 
         Livewire::test(ShortenedLink::class)
             ->set('long_url', $this->faker()->url)
@@ -93,7 +82,7 @@ class ShortenedLinkTest extends TestCase
     public function url_can_be_saved_without_private_checked()
     {
         $long_url = $this->faker()->url;
-        $word = $this->pupulated_words_table();
+        $word = $this->populated_words_table();
 
         Livewire::test(ShortenedLink::class)
             ->set('long_url',  $long_url)
@@ -110,8 +99,8 @@ class ShortenedLinkTest extends TestCase
     public function url_can_be_saved_with_private_checked()
     {
         $long_url = $this->faker()->url;
-        $word = $this->pupulated_words_table();
-        $user = $this->create_user();
+        $word = $this->populated_words_table();
+        $user = User::factory()->create();
         $this->actingAs($user);
 
         Livewire::test(ShortenedLink::class)

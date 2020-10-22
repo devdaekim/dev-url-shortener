@@ -74,6 +74,7 @@ class ShortenedLink extends Component
 
 
         // 1. get the id of a random available word
+        // FIXME what if where's no more available word???
         $data['word_id'] = (Word::available())->id;
 
         // 2. update or create
@@ -85,7 +86,7 @@ class ShortenedLink extends Component
         $link ? $this->updateLink($link, $data) : $this->createLink($data);
 
         // 3. reset the form
-        $this->reset();
+        $this->reset(['long_url', 'description', 'private']);
 
         // 4. notification of saving
         $this->emitSelf('notify-saved');

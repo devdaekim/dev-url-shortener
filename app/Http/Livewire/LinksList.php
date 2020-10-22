@@ -57,6 +57,7 @@ class LinksList extends Component
                     $query->orWhere('description', 'like', $searchTerm);
                 }
             })
+            ->orderBy('updated_at', 'DESC')
             ->paginate($this->items_per_page);
     }
 

@@ -17,7 +17,6 @@ class ResetPassword extends Component
     public $password;
     public $password_confirmation;
     public $token;
-    private $holder;
 
     public function mount()
     {
@@ -52,6 +51,7 @@ class ResetPassword extends Component
             ])->save();
 
             $user->setRememberToken(Str::random(60));
+            $user->save();
             event(new PasswordReset($user));
         });
 

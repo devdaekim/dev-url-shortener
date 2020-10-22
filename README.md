@@ -57,3 +57,9 @@ php artisan key:generate
 -   The example user's email is bs@example.net and the password is password.
 -   No email verification required.
 -   The password must be 8-20 long.
+
+## Testing
+
+```shell
+./vendor/bin/phpunit
+```
