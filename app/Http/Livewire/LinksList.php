@@ -47,10 +47,9 @@ class LinksList extends Component
         $searchTerm = "%{$this->searchTerm}%";
 
         $this->shortened_links = Link::with('word')->where(function ($query) {
-            if (!$this->private) {
-                $query->whereNull('user_id');
+            if ($this->private === true) {
+                $query->where('user_id', auth()->id());
             }
-            $query->orWhere('user_id', auth()->id());
         })
             ->where(function ($query) use ($searchTerm) {
                 if ($this->searchTerm !== '') {
