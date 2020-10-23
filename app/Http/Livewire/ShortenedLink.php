@@ -94,11 +94,8 @@ class ShortenedLink extends Component
             // 5. refresh the shortened links list
             $this->emitTo('links-list', 'search');
         } catch (\Throwable $e) {
-            // TODO emit notice & get confirm whether remove the oldest record
-            // 1. get the oldest shortened URL (only private)
+            // no more available words exist
             $this->oldest_private_link = Link::with('word')->where('user_id', auth()->id())->orderBy('created_at', 'DESC')->first();
-            // FIXME there can be no private links
-
             $this->emitSelf('word-unavailable-alert', $this->oldest_private_link);
         }
     }
@@ -115,6 +112,7 @@ class ShortenedLink extends Component
         $link->long_url = $this->long_url;
         $link->description = $this->description;
         $link->user_id = $this->private ? auth()->id() : null;
+        $link->counts = 0;
         $link->created_at = now();
         $link->updated_at = now();
         $link->save();
