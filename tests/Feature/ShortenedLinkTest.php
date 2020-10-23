@@ -15,6 +15,7 @@ use Tests\TestCase;
 class ShortenedLinkTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
+    private  $message = 'Saved!';
 
     private function populated_words_table()
     {
@@ -119,10 +120,38 @@ class ShortenedLinkTest extends TestCase
     /** @test */
     public function saved_message_is_shown_on_save()
     {
-        $message = 'Saved!';
 
         Livewire::test(ShortenedLink::class)
             ->call('shorten')
-            ->assertSee($message);
+            ->assertSee($this->message);
+    }
+
+    /** @test */
+    public function no_more_available_words_warning_can_be_seen_when_shortening_a_link()
+    {
+        Word::create(['word' => $this->faker()->word, 'available' => false]);
+        Livewire::test(ShortenedLink::class)
+            ->set('long_url', $this->faker()->url)
+            ->call('shorten')
+            ->assertSee('No more words available');
+    }
+
+    /** @test */
+    public function can_update_the_oldest_private_link_when_no_available_words_exist()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+
+        $word = Word::create(['word' => $this->faker()->word, 'available' => false]);
+        $link = Link::create([
+            'long_url' => $this->faker()->url,
+            'word_id' => $word->id,
+            'user_id' => $user->id,
+        ]);
+
+        Livewire::test(ShortenedLink::class)
+            ->set('long_url', $this->faker()->url)
+            ->call('overwrite_oldest_link', $link)
+            ->assertSee($this->message);
     }
 }

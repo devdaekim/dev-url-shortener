@@ -7,11 +7,9 @@ Dev URL Shortner is a simple URL shortener service, developed in [Laravel v8](ht
 -   The word list used to shorten the URLs is pulled form the EFF's short wordlist.
 -   A user can enter the same URLs many times, but the resulting short URL always is unique.
 -   A user can enter a short (140 characters) description of their URL.
+-   When no more words are available, users can be either cancel the process or proceed by overwriting the oldest private link. But if there is no private link to be overwritten, no url can be shortened.
 -   When a shortened URL is visited, a counter for that URL is incremented to indicate how many times the shortened link has been used.
 -   The main page for the site shows a listing of the 10 most recent shortend URLs, along with their description, the original URL and the visit counts.
-
-### Additional Specification
-
 -   The list of the shortened URLs is paginated.
 -   A user can search the listings using the private checkbox and/or the search box.
 -   The search looks up the long URLs and the description, if any.
