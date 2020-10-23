@@ -72,7 +72,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td  class="w-4/12 px-6 py-4 whitespace-no-wrap" colspan="4">No users found</td>
+                    <td  class="w-4/12 px-6 py-4 whitespace-no-wrap" colspan="5">No records found</td>
                 </tr>
                 @endforelse
             </tbody>

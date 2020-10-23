@@ -4,7 +4,6 @@
 ])
 <button
   type="{{ $type }}"
-  wire:loading.attr='disabled'
   class="
   {{ $label === 'Shorten' ? 'px-10' : 'px-4' }}
   inline-flex items-center justify-center w-full  py-2 font-bold text-white transition duration-150 ease-in-out bg-blue-600 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline focus:border-blue-800 focus:shadow-outline-blue disabled:opacity-50"
